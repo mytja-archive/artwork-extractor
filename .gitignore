@@ -1,0 +1,11 @@
+# CMake configuration files.
+
+build
+CMakeFiles
+cmake_install.cmake
+CMakeCache.txt
+Makefile
+
+# Generated executable.
+
+artwork_extractor
