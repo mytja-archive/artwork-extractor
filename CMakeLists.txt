@@ -7,13 +7,29 @@ project(${PROJECT_NAME})
 
 add_executable(${PROJECT_NAME} artwork_extractor.cpp)
 
-target_include_directories(
-    ${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-target_link_libraries(
-    ${PROJECT_NAME} PUBLIC
-    mediainfo
-    dl
-)
+if (WIN32)
+    add_custom_command(
+        TARGET ${PROJECT_NAME} PRE_BUILD
+        COMMAND copy \"${CMAKE_CURRENT_SOURCE_DIR}\\win32\\MediaInfo.dll\" \"${CMAKE_CURRENT_SOURCE_DIR}\\${CMAKE_BUILD_TYPE}\"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+    target_include_directories(
+        ${PROJECT_NAME} PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/win32
+    )
+    target_link_libraries(
+        ${PROJECT_NAME} PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/win32/MediaInfo.lib
+    )
+else ()
+    target_include_directories(
+        ${PROJECT_NAME} PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+    )
+    target_link_libraries(
+        ${PROJECT_NAME} PUBLIC
+        mediainfo
+        dl
+    )
+endif ()

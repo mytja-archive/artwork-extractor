@@ -2,7 +2,6 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include <filesystem>
 #include <cstdlib>
 #include <cstring>
 #include <cstdint>
@@ -20,8 +19,30 @@ this->data += (x); \
 static inline uint32_t U32_AT(const void* data) {
     uint32_t x;
     memcpy(&x, data, sizeof(x));
+    #ifdef _WIN32
+    return ((x & 0x000000FF) << 24)
+        | ((x & 0x0000FF00) <<  8)
+        | ((x & 0x00FF0000) >>  8)
+        | ((x & 0xFF000000) >> 24);
+    #else
     return __builtin_bswap32(x);
+    #endif
 }
+
+
+#ifdef _WIN32
+char* strndup(const char* array, size_t size) {
+    char* buffer;
+    size_t n;
+    buffer = (char*)malloc(size +1);
+    if (buffer) {
+        for (n = 0; ((n < size) && (array[n] != 0)) ; n++) buffer[n] = array[n];
+        buffer[n] = 0;
+    }
+    return buffer;
+}
+#endif
+
 
 using namespace MediaInfoDLL;
 

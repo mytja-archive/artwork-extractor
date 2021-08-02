@@ -14,8 +14,8 @@ public:
 
     static inline std::vector<std::string> split(std::string string, std::string match) {
         std::vector<std::string> result = {};
-        int matchSize = match.size();
-        int last = 0;
+        size_t matchSize = match.size();
+        size_t last = 0;
         for (int index = 0; index < string.size(); index++) {
             if (string.substr(index, matchSize) == match) {
                 result.emplace_back(string.substr(last, index - last));
@@ -28,9 +28,9 @@ public:
 
     static inline std::string replace(std::string string, std::string match, std::string replace) {
         std::string result;
-        int matchSize = match.size();
-        int lastIndex = 0;
-        int matchCounter = 0;
+        size_t matchSize = match.size();
+        size_t lastIndex = 0;
+        size_t matchCounter = 0;
         for (int index = 0; index < string.size(); index++) {
             if (matchCounter != 0) {
                 if (matchCounter == match.size() - 1) matchCounter = 0;
