@@ -134,6 +134,10 @@ public:
     }
 };
 
+void writeToFile(char* pathToFile, char* pathToImage) {
+    ArtworkExtractor extractor = ArtworkExtractor(pathToFile, pathToImage);
+    extractor.write();
+}
 
 int32_t main(int argc, const char** argv) {
     std::vector<std::string> args(argv, argv + argc);
