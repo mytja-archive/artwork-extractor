@@ -1,0 +1,19 @@
+name: Github Actions
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_windows:
+    name: Build Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: cmake --build --config Release .
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Windows
+          path: Release
