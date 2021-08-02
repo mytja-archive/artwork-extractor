@@ -9,4 +9,16 @@ Makefile
 # Generated executable.
 
 artwork_extractor
+Debug
+Release
 
+# Visual Studio configuration
+
+*.dir
+*.vcxproj
+*.vcxproj.*
+*.sln
+
+# Visual Studio Code files
+
+.vscode
